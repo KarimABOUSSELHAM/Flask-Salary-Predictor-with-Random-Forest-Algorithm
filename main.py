@@ -2,14 +2,14 @@ import numpy as np
 from flask import Flask, request, jsonify, render_template
 import pickle
 
-app = Flask(__name__)
+application = Flask(__name__)
 model = pickle.load(open('model.pkl', 'rb'))
 
-@app.route('/')
+@application.route('/')
 def home():
     return render_template('index.html')
 
-@app.route('/predict',methods=['POST'])
+@application.route('/predict',methods=['POST'])
 def predict():
     '''
     For rendering results on HTML GUI
@@ -24,5 +24,5 @@ def predict():
     return render_template('index.html', prediction_text='Gold Medal Number is {}'.format(output))
 
 if __name__ == "__main__":
-    #app.run(host='127.0.0.1', port=8080, debug=True)
-    app.run()
+    #application.run(host='127.0.0.1', port=8080, debug=True)
+    application.run()
