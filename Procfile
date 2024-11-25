@@ -1,1 +1,1 @@
-web: gunicorn --bind 0.0.0.0:8080 main:app
+web: gunicorn --bind 127.0.0.1:8000 main:app
