@@ -1,7 +1,7 @@
 # Flask Salary/Medals Predictor
 In this project, we have forked the repository as suggested in the 3rd exercise of the 1st edition of "Practical Mlops" book written by N. Gift and A. Deza.  
 
-The purpose of the exercise is to deploy the same Flask project using AWS Elastic Beanstalk and AWS Codepipeline instead of GCloud.
+The purpose of the exercise is to deploy the same Flask project using AWS Elastic Beanstalk and AWS Codepipeline instead of GCloud. Creating a new environment and application will not b detailed futher as they are supposed to be learned from the previous exercise.
 
 The datasets are from Kaggle. (e.g the salary dataset is called: ["Kaggle Years of experience and Salary dataset"](https://www.kaggle.com/rohankayan/years-of-experience-and-salary-dataset))
 
@@ -10,9 +10,7 @@ The datasets are from Kaggle. (e.g the salary dataset is called: ["Kaggle Years 
 # Architecture
 ![image](https://github.com/user-attachments/assets/3b0e8055-0299-4d73-9abc-a4d804866ac2)
 
-![image](https://user-images.githubusercontent.com/61890131/116028539-37bec680-a60c-11eb-8527-35cf3cf1dac5.png)
-
-The above diagram is the cloud architecture of our salary prediction system. Inside the cloud diagram we have our google cloud services listed: Storage Bucket, Compute Instance, Cloud Run, and Cloud Build. The storage bucket stores the kaggle salary dataset. The compute instances are where code files lie within the cloud platform. We update our github repo by merging feature branch into master branch or change part of the code of the website layout. This will automatically trigger Cloud Build to deploy the code updates into the production flask container.
+The above diagram is the cloud architecture of our application. The diagram shows how the system globally works: The project files are initially stored in this github profile. Each modification in this github triggers the pipeline created in codepipeline which in return builds the updated version of the application in an elastic beanstalk environment. This latter when ready can show the deployed application in a website.  
 
 # Model
 `model.py` trains and saves the model to disk.
@@ -63,16 +61,16 @@ import numpy as np
 from flask import Flask, request, jsonify, render_template
 import pickle
 
-app = Flask(__name__)
+application = Flask(__name__)
 # Load model from model.pkl
 model = pickle.load(open('model.pkl', 'rb'))
 
 # Homepage route
-@app.route('/')
+@application.route('/')
 def home():
     return render_template('index.html')
 
-@app.route('/predict',methods=['POST'])
+@application.route('/predict',methods=['POST'])
 def predict():
     '''
     For rendering results on HTML GUI
@@ -86,7 +84,7 @@ def predict():
     return render_template('index.html', prediction_text='Salary is {}'.format(output))
 
 if __name__ == "__main__":
-    app.run(host='127.0.0.1', port=8080, debug=True)
+    application.run(host='127.0.0.1', port=8080, debug=True)
 ```
 
 
@@ -100,7 +98,7 @@ git clone https://github.com/YisongZou/IDS721-Final-Project.git
 ```python
 make all
 ```
-3) Train the model
+3) Train the model: This will resave the pickle model
 ```python
 python3 model.py
 ```
@@ -108,33 +106,16 @@ python3 model.py
 ```python
 python3 main.py
 ```
+5) Test the application in your localhost to check it works correctly
 
-## Set up Google Cloud Project
-Step 1: Create new GCP project
+## Set up AWS Elastic Beanstalk environment and application
+Step 1: Log in to the AWS Management Console
 
-Step 2: Check to see if the console is pointing to the correct project
-```python
-gcloud projects describe $GOOGLE_CLOUD_PROJECT
-```
+Step 2: Click on `Create application`. Choose a name for your application and a platform (The platform we selected is `Python 3.12 running on 64bit Amazon Linux 2`)
 
-Step 3: Set working project if not correct
-```python
-gcloud config set project $GOOGLE_CLOUD_PROJECT
-```
+Step 3: Create and launch a New Environment. Choose a name for the new environment and select the appropriate options (This will be a web server environment and we won't upload project files in this step as we'll let codepipeline do this job. The ec-2 instance type will be t2.micro)
 
-Step 4: Follow Step 1-4 to set up github repo and test Flask application
-
-Step 5: In the root project of the folder, replace PROJECT-ID below with the correct GCP project-id, and build the google cloud containerized flask application
-```python
-gcloud builds submit --tag gcr.io/<PROJECT-ID>/app
-```
-
-Step 6: In the root folder of the project, replace PROJECT-ID below with the correct GCP project-id, and run the flask application
-```python
-gcloud run deploy --image gcr.io/<PROJECT-ID>/app --platform managed
-```
-
-Step 7: Paste the URL link provided on the console, in a preferred browser to run the application
+Step 4: Check your environment is in ready state in aws elastic beanstalk environment dashboard
 
 
 ## Set up Continuous Deployment (CD)
@@ -145,12 +126,3 @@ Step 7: Paste the URL link provided on the console, in a preferred browser to ru
 - View progress in [build triggers page](https://console.cloud.google.com/cloud-build/triggers)
 
 
-## Load Testing
-
-Website link with Continuous Delivery enabled.
-https://final-project-311720.uc.r.appspot.com/
-
-Loadtest code repo: https://github.com/YisongZou/IDS721-Finalproject-Locust-load-test
-
-```Photo shows the project scaling to 1K+ requests per second```
-![](https://github.com/YisongZou/IDS721-Finalproject-Locust-load-test/blob/main/IMG_1076.PNG)
