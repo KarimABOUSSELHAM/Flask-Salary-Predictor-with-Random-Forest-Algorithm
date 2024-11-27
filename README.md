@@ -5,8 +5,6 @@ The purpose of the exercise is to deploy the same Flask project using AWS Elasti
 
 The datasets are from Kaggle. (e.g the salary dataset is called: ["Kaggle Years of experience and Salary dataset"](https://www.kaggle.com/rohankayan/years-of-experience-and-salary-dataset))
 
-![pic](https://github.com/YisongZou/IDS721-Final-Project/blob/main/Screen%20Shot%202021-04-22%20at%201.42.12%20AM.png)
-
 # Architecture
 ![image](https://github.com/user-attachments/assets/3b0e8055-0299-4d73-9abc-a4d804866ac2)
 
