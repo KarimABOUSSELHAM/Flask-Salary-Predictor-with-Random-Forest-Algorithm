@@ -1,8 +1,9 @@
-# Flask Salary Predictor
-In this project, we are going to use a random forest algorithm (or any other preferred algorithm) from scikit-learn library to help predict the salary based on your years of experience. We will use Flask as it is a very light web framework to handle the POST requests.  
-[Project description video on YouTube](https://www.youtube.com/watch?v=QImMWBdnEJY)
+# Flask Salary/Medals Predictor
+In this project, we have forked the repository as suggested in the 3rd exercise of the 1st edition of "Practical Mlops" book written by N. Gift and A. Deza.  
 
-The dataset is from [Kaggle Years of experience and Salary dataset](https://www.kaggle.com/rohankayan/years-of-experience-and-salary-dataset)
+The purpose of the exercise is to deploy the same Flask project using AWS Elastic Beanstalk and AWS Codepipeline instead of GCloud.
+
+The datasets are from Kaggle. (e.g the salary dataset is called: ["Kaggle Years of experience and Salary dataset"](https://www.kaggle.com/rohankayan/years-of-experience-and-salary-dataset))
 
 ![pic](https://github.com/YisongZou/IDS721-Final-Project/blob/main/Screen%20Shot%202021-04-22%20at%201.42.12%20AM.png)
 
