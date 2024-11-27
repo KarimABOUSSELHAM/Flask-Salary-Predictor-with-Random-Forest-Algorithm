@@ -118,11 +118,27 @@ Step 3: Create and launch a New Environment. Choose a name for the new environme
 Step 4: Check your environment is in ready state in aws elastic beanstalk environment dashboard
 
 
-## Set up Continuous Deployment (CD)
-- Create a new build trigger
-- Specify github repository
-- Deployment specifications already available in: `cloudbuild.yaml` file
-- Push a simple change; Triggered on Master branch
-- View progress in [build triggers page](https://console.cloud.google.com/cloud-build/triggers)
+## Set up Continuous Deployment with AWS codepipeline (CD)
+Step 1: Log in codepipeline and click on create pipeline  
+![1b-log to codepipeline and click create pipeline](https://github.com/user-attachments/assets/968e9a32-b2a0-4cc1-b344-28a5be2b6a1a)
 
+Step 2: Choose build custom pipeline  
+![2b-choose build custom pipeline](https://github.com/user-attachments/assets/c90010a0-3b53-471e-83d2-b4733a6a1b93)
 
+Step 3: Choose a name for the new pipeline and let aws create an automatic service role  
+![3b-give the pipeline a name and let aws create an automatic service role](https://github.com/user-attachments/assets/b980d813-3927-4c2c-b562-0cc3ee70072d)
+
+Step 4: Choose Github (via OAuth app) as a source code provider and click on connect
+![4b-connect to your github repo](https://github.com/user-attachments/assets/e0b29403-a14d-4c17-922c-64f3f56dd784)
+
+Step 5: Skip the build stage as building dependencies will be operated through requirements text file  
+![5b-skip the build stage as building dependencies is already with requirements text file](https://github.com/user-attachments/assets/e7958ebf-c14b-4dbb-8517-3cd506294e8a)
+
+Step 6: Choose elastice beanstalk as the deployment provider and the appropriate environment and application names which you created earlier  
+![6b-choose elastice beanstalk as the deployment provider and the appropriate env and app names](https://github.com/user-attachments/assets/6003b338-0d80-49dc-903b-9c0101dd9b91)
+
+Step 7: Create the pipeline after checking the review section  
+![7b-create the pipeline after review of the entered data](https://github.com/user-attachments/assets/bb0160e4-45fd-4fe3-9ccf-7c465f920df6)
+
+While creating the pipeline you can view the progress in codepipline page. Once correctly set, go check your environment in elastic beanstalk. The following picture shows the obtained result.  
+![image](https://github.com/user-attachments/assets/ecf818ad-c46a-4fbb-a737-57e79fff55e5)
