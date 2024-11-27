@@ -8,6 +8,8 @@ The datasets are from Kaggle. (e.g the salary dataset is called: ["Kaggle Years 
 ![pic](https://github.com/YisongZou/IDS721-Final-Project/blob/main/Screen%20Shot%202021-04-22%20at%201.42.12%20AM.png)
 
 # Architecture
+![image](https://github.com/user-attachments/assets/3b0e8055-0299-4d73-9abc-a4d804866ac2)
+
 ![image](https://user-images.githubusercontent.com/61890131/116028539-37bec680-a60c-11eb-8527-35cf3cf1dac5.png)
 
 The above diagram is the cloud architecture of our salary prediction system. Inside the cloud diagram we have our google cloud services listed: Storage Bucket, Compute Instance, Cloud Run, and Cloud Build. The storage bucket stores the kaggle salary dataset. The compute instances are where code files lie within the cloud platform. We update our github repo by merging feature branch into master branch or change part of the code of the website layout. This will automatically trigger Cloud Build to deploy the code updates into the production flask container.
